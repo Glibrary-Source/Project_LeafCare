@@ -8,6 +8,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -25,8 +26,6 @@ class MainActivity : AppCompatActivity() {
         Manifest.permission.WRITE_EXTERNAL_STORAGE)
     val CAMERA_CODE = 98
     val STORAGE_CODE = 99
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,37 +52,16 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btnResult.setOnClickListener {
             navController.navigate(R.id.fragmentResult, null, options)
+
         }
         binding.btnStore.setOnClickListener {
             navController.navigate(R.id.fragmentStore, null, options)
         }
-        //
 
-    }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        CallCamera()
 
-        when(requestCode) {
-            CAMERA_CODE -> {
-                for (grant in grantResults){
-                    if(grant != PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(this, "카메라 권한을 승인해 주세요", Toast.LENGTH_LONG).show()
-                    }
-                }
-            }
-            STORAGE_CODE -> {
-                for(grant in grantResults) {
-                    if(grant != PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(this, "저장소 권한을 승인해 주세요", Toast.LENGTH_LONG).show()
-                    }
-                }
-            }
-        }
+
     }
 
     fun checkPermission(permissions: Array<out String>, type:Int):Boolean{
@@ -99,13 +77,41 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    //다이얼로그 클릭 후 처리
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when(requestCode) {
+            CAMERA_CODE -> {
+                for (grant in grantResults){
+                    if(grant != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(this, "카메라 권한을 승인해 주세요", Toast.LENGTH_LONG).show()
+                    } else {
+                        CallCamera()
+                    }
+                }
+            }
+
+            STORAGE_CODE -> {
+                for(grant in grantResults) {
+                    if(grant != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(this, "저장소 권한을 승인해 주세요", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
+    }
+
+
     fun CallCamera(){
         if(checkPermission(CAMERA, CAMERA_CODE) && checkPermission(STORAGE, STORAGE_CODE)){
             val itt = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(itt, CAMERA_CODE)
         }
     }
-
-
 
 }
