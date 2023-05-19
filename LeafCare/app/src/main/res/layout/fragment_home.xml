@@ -20,9 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:layout_margin="15dp"
-                android:padding="7dp"
-                android:src="@drawable/ic_launcher_background"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:background="@drawable/fragment_home_img_search"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -91,7 +89,6 @@
                     android:textSize="20sp"/>
 
             </LinearLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
