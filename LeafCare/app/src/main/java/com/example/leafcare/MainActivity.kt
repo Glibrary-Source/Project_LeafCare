@@ -3,9 +3,9 @@ package com.example.leafcare
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val REQUEST_PERMISSIONS = 1
+    private var backKeyPressedTime: Long = 0
+    private var toast: Toast? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         checkPermission()
+    }
+
+    //뒤로가기 두번
+    override fun onBackPressed() {
+
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast = Toast.makeText(this, "\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT)
+            toast?.show()
+            return
+        }
+
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            finish()
+            toast?.cancel()
+        }
+
+        super.onBackPressed()
     }
 
     private fun navAnimation(navController: NavController): NavOptions {
@@ -89,7 +109,8 @@ class MainActivity : AppCompatActivity() {
             /* 2. 권한 요청을 거부했다면 안내 메시지 보여주며 앱 종료 */
             grantResults.forEach {
                 if(it == PackageManager.PERMISSION_DENIED) {
-                    Toast.makeText(applicationContext, "서비스의 필요한 권한입니다.\n권한에 동의해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext,
+                        "서비스의 필요한 권한입니다.\n권한에 동의해주세요.", Toast.LENGTH_SHORT).show()
                 }
             }
         }

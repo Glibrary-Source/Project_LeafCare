@@ -7,88 +7,98 @@
     android:layout_height="match_parent"
     tools:context=".fragment.FragmentHome">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/img_search"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="0dp"
                 android:layout_margin="15dp"
-                android:scaleType="centerCrop"
                 android:background="@drawable/fragment_home_img_search"
+                android:scaleType="centerCrop"
+                app:layout_constraintVertical_weight="3"
+                app:layout_constraintBottom_toTopOf="@+id/button_layout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:id="@+id/button_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:weightSum="2"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintVertical_weight="1"
+                app:layout_constraintBottom_toTopOf="@+id/question_layout"
                 app:layout_constraintStart_toStartOf="@id/img_search"
-                app:layout_constraintTop_toBottomOf="@id/img_search" >
+                app:layout_constraintTop_toBottomOf="@+id/img_search">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:weightSum="2">
+
+                    <Button
+                        android:id="@+id/btn_camera"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_weight="1"
+                        android:text="@string/home_fragment_btn_camera" />
+
+                    <Button
+                        android:id="@+id/btn_album"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_weight="1"
+                        android:text="@string/home_fragment_btn_album" />
+                </LinearLayout>
 
                 <Button
-                    android:id="@+id/btn_camera"
-                    android:text="@string/home_fragment_btn_camera"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="1dp"
-                    android:layout_weight="1"/>
+                    android:id="@+id/btn_search_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="@string/home_fragment_btn_searchtoimg" />
 
-                <Button
-                    android:id="@+id/btn_album"
-                    android:text="@string/home_fragment_btn_album"
-                    android:layout_width="0dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    />
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/question_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:orientation="vertical"
-                android:layout_marginTop="15dp"
+                app:layout_constraintVertical_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/img_search"
-                app:layout_constraintTop_toBottomOf="@id/button_layout" >
+                app:layout_constraintTop_toBottomOf="@+id/button_layout">
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/edit_name"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint=""
-                    android:textSize="20sp"/>
+                    android:hint="@string/home_fragment_edit_name"
+                    android:textSize="20sp" />
 
-                <EditText
-                    android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/btn_search_name"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"/>
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"/>
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"/>
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"/>
+                    android:text="@string/home_fragment_btn_searchtoname" />
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+<!--    </ScrollView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
